@@ -112,7 +112,7 @@ export default class GameScaffold extends Component {
                 </div>
               )
             ) : (
-              <h2>Which of these items show a matching pair?</h2>
+              <h2>Which of these items are a matching pair?</h2>
             )}
           </div>
           <div className="container">
