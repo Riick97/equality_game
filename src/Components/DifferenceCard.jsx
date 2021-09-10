@@ -1,58 +1,61 @@
-import React, { Component } from "react";
 import Icon from "./Icon";
 import checkmark from "../Assets/checkmark.png";
 import cross from "../Assets/cross.png";
 import "../Styles/DifferenceCard.css";
+import { useTransition, animated } from "react-spring";
 
-export default class DifferenceCard extends Component {
-  render() {
-    if (this.props.show) {
-      return (
-        <div className="container">
-          <div className="column">
-            <div className="row">
-              <Icon name={this.props.groceries[0]} />
-              {this.props.correct ? (
-                <Icon name={this.props.groceries[0]} />
-              ) : (
-                <Icon name={this.props.groceries[1]} />
-              )}
-              {this.props.result !== "empty" ? (
-                this.props.result === "correct" ? (
-                  <div className="background centered">
-                    <div className="green_shade"></div>
-                    <img className="checkmark" src={checkmark} alt="" />
-                  </div>
-                ) : (
-                  <div className="background centered">
-                    <div className="red_shade"></div>
-                    <img className="cross" src={cross} alt="" />
-                  </div>
-                )
-              ) : null}
-            </div>
+export default function DifferenceCard(props) {
+  const transition = useTransition(props.show, {
+      from: {x: -100, y: 800, opacity: 0},
+      enter: {x: 0, y: 0, opacity: 1},
+      leave: {x: 100, y: 800, opacity: 0},
+  });
 
-            <div className="bottom centered">
-              {this.props.result === "empty" ? (
-                <button
-                  onClick={() => this.props.onChosen(this.props.id)}
-                  className="green_button"
-                >
-                  {this.props.correct ? "Choose" : "Choose"}
-                </button>
+  return transition((style, item) =>
+    item ? (
+      <animated.div style={style} className="container">
+        <div className="column">
+          <div className="row">
+            <Icon name={props.groceries[0]} />
+            {props.correct ? (
+              <Icon name={props.groceries[0]} />
+            ) : (
+              <Icon name={props.groceries[1]} />
+            )}
+            {props.result !== "empty" ? (
+              props.result === "correct" ? (
+                <div className="background centered">
+                  <div className="green_shade"></div>
+                  <img className="checkmark" src={checkmark} alt="" />
+                </div>
               ) : (
-                <button
-                  onClick={() => this.props.onNext(this.props.id)}
-                  className="green_button_big"
-                >
-                  Next
-                </button>
-              )}
-            </div>
+                <div className="background centered">
+                  <div className="red_shade"></div>
+                  <img className="cross" src={cross} alt="" />
+                </div>
+              )
+            ) : null}
+          </div>
+
+          <div className="bottom centered">
+            {props.result === "empty" ? (
+              <button
+                onClick={() => props.onChosen(props.id)}
+                className="green_button"
+              >
+                {props.correct ? "Choose" : "Choose"}
+              </button>
+            ) : (
+              <button
+                onClick={() => props.onNext(props.id)}
+                className="green_button_big"
+              >
+                Next
+              </button>
+            )}
           </div>
         </div>
-      );
-    }
-    return null;
-  }
+      </animated.div>
+    ) : null
+  );
 }
