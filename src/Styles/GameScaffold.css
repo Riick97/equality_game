@@ -11,7 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
+    gap: 100px;
 }
 
 .container_results {
@@ -20,7 +20,7 @@
 
 .question {
     color: #049c8d;
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 .results_title {
@@ -43,7 +43,7 @@
 
 .green_button_big {
     margin: 40px;
-    min-height: 50px;
+    min-height: 60px;
     min-width: 170px;
     text-align: center;
     color: #fffcfd;

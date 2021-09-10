@@ -29,7 +29,7 @@ export default class Icon extends Component {
   render() {
     return (
       <div style={{ zIndex: -3 }}>
-        <img style={{height: 'auto', width: '85px'}} src={this.getImageSource(this.props.name)} alt="" />
+        <img style={{height: 'auto', width: '130px'}} src={this.getImageSource(this.props.name)} alt="" />
       </div>
     );
   }

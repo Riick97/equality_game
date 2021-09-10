@@ -104,7 +104,7 @@ export default class GameScaffold extends Component {
             {this.state.result !== "empty" ? (
               this.state.result === "correct" ? (
                 <div className="title_green">
-                  <h2>You got the right answer!</h2>
+                  <h2>You've got the right answer!</h2>
                 </div>
               ) : (
                 <div className="title_red">

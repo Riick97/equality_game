@@ -13,8 +13,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
-    width: 200px;
+    height: 300px;
+    width: 300px;
     gap: 15px;
     border: #049c8d 4px solid;
     border-radius: 50%;
@@ -60,6 +60,10 @@
     width: 50%;
 }
 
+.bottom {
+    padding: 40px 0;
+}
+
 .cross {
     height: 50%;
     width: 50%;
@@ -74,8 +78,8 @@
 }
 
 .green_button {
-    height: 50px;
-    width: 120px;
+    min-height: 60px;
+    min-width: 160px;
     color: #fffcfd;
     background-color: #29c4b4;
     border: #049c8d 2px solid;
@@ -86,8 +90,8 @@
 
 .green_button_big {
     margin: 40px;
-    height: 50px;
-    width: 170px;
+    min-height: 60px;
+    min-width: 180px;
     color: #fffcfd;
     background-color: #29c4b4;
     border: #049c8d 2px solid;
