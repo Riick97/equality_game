@@ -1,11 +1,11 @@
 import './App.css';
-import Game from './Components/Game';
+import GameScaffold from './Components/GameScaffold';
 
 function App() {
 
   return (
     <div className="App">
-      <Game />
+      <GameScaffold />
     </div>
   );
 }
