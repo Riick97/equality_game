@@ -1,9 +1,8 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import DifferenceCard from "./DifferenceCard";
 import ProgressBar from "./ProgressBar";
 import "../Styles/GameScaffold.css";
 import { useTransition, animated } from "react-spring";
-
 
 export default function GameScaffold(props) {
   const [correctIndex, setCorrectIndex] = useState(getOneOrZero());
@@ -32,9 +31,15 @@ export default function GameScaffold(props) {
   const [answerCount, setAnswerCount] = useState(0);
   const [gameFinished, setGameFinished] = useState(false);
 
+  const transition = useTransition(cards, {
+    from: { x: 0, y: 800, opacity: 0 },
+    enter: { x: 0, y: 0, opacity: 1 },
+    
+  });
+
   function getOneOrZero() {
     return Math.random() >= 0.5 ? 1 : 0;
-  };
+  }
 
   function getSelections() {
     let array = [];
@@ -47,25 +52,23 @@ export default function GameScaffold(props) {
       }
     }
     return array;
-  };
+  }
 
   const handleChoice = (id) => {
     let updatedAnswers = answerResults;
     if (correctIndex === id) {
       updatedAnswers[answerCount] = true;
       let updatedCorrectAnswers = correctAnswers + 1;
-      setResult('correct');
+      setResult("correct");
       setAnswerResults(updatedAnswers);
-      setCorrectAnswers(updatedCorrectAnswers)
-     
+      setCorrectAnswers(updatedCorrectAnswers);
     } else {
       updatedAnswers[answerCount] = false;
-      setResult('incorrect');
+      setResult("incorrect");
       setAnswerResults(updatedAnswers);
     }
-    let updatedCards = cards.map((card) => {
-      card.show = card.id === id;
-      return card;
+    let updatedCards = cards.filter((card) => {
+      if (card.id === id) return card;
     });
 
     let updatedCount = answerCount + 1;
@@ -77,11 +80,12 @@ export default function GameScaffold(props) {
     if (answerCount >= answerResults.length) {
       setGameFinished(true);
     }
-    let updatedCards = cards.map((card) => {
-      card.show = true;
-      return card;
-    });
-    setResult('empty');
+    setCards([]);
+    let updatedCards = [
+      { id: 0, show: true, indexes: [0, 1] },
+      { id: 1, show: true, indexes: [2, 3] },
+    ];
+    setResult("empty");
     setCorrectIndex(getOneOrZero());
     setCards(updatedCards);
     setCurrentSelections(getSelections());
@@ -113,23 +117,25 @@ export default function GameScaffold(props) {
           )}
         </div>
         <div className="container">
-          {cards.map((card) => {
-            return (
-              <DifferenceCard
-                correct={correctIndex === card.id}
-                groceries={[
-                  currentSelections[card.indexes[0]],
-                  currentSelections[card.indexes[1]],
-                ]}
-                id={card.id}
-                key={card.id}
-                show={card.show}
-                onChosen={handleChoice}
-                onNext={handleNext}
-                result={result}
-              />
-            );
-          })}
+          {transition((style, card) =>
+            card.show ? (
+              <animated.div style={style}>
+                <DifferenceCard
+                  correct={correctIndex === card.id}
+                  groceries={[
+                    currentSelections[card.indexes[0]],
+                    currentSelections[card.indexes[1]],
+                  ]}
+                  id={card.id}
+                  key={card.id}
+                  // show={card.show}
+                  onChosen={handleChoice}
+                  onNext={handleNext}
+                  result={result}
+                />
+              </animated.div>
+            ) : null
+          )}
         </div>
         <div className="container_progress">
           <ProgressBar answerResults={answerResults} />
