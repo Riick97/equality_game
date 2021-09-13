@@ -32,8 +32,8 @@ export default function GameScaffold(props) {
   const [gameFinished, setGameFinished] = useState(false);
 
   const transition = useTransition(cards, {
-    from: { x: 0, y: 800, opacity: 0 },
-    enter: { x: 0, y: 0, opacity: 1 },
+    from: { x: 0, y: 0, opacity: 0, scale: 0.3 },
+    enter: { x: 0, y: 0, opacity: 1, scale: 1 },
     
   });
 
